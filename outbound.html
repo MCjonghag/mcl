@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>출고 관리 - 자동차 부품 재고 관리 시스템</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-car"></i> 자동차 부품 재고 관리 시스템</h1>
+      <nav>
+        <ul class="main-menu">
+          <li>
+            <a href="index.html" id="dashboard-link"
+              ><i class="fas fa-chart-line"></i> 대시보드</a
+            >
+          </li>
+          <li>
+            <a href="inbound.html" id="inbound-link"
+              ><i class="fas fa-arrow-down"></i> 입고 관리</a
+            >
+          </li>
+          <li>
+            <a href="inventory.html" id="inventory-link"
+              ><i class="fas fa-boxes"></i> 재고 관리</a
+            >
+          </li>
+          <li>
+            <a href="outbound.html" id="outbound-link" class="active"
+              ><i class="fas fa-arrow-up"></i> 출고 관리</a
+            >
+          </li>
+          <li>
+            <a href="suppliers.html" id="suppliers-link"
+              ><i class="fas fa-industry"></i> 공급업체 관리</a
+            >
+          </li>
+          <li>
+            <a href="clients.html" id="clients-link"
+              ><i class="fas fa-building"></i> 납품처 관리</a
+            >
+          </li>
+          <li>
+            <a href="reports.html" id="reports-link"
+              ><i class="fas fa-file-alt"></i> 보고서</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="outbound" class="section active">
+        <h2><i class="fas fa-arrow-up"></i> 출고 관리</h2>
+        <div class="action-buttons">
+          <button id="outbound-add">
+            <i class="fas fa-plus"></i> 신규 출고 등록
+          </button>
+          <button id="outbound-excel-import">
+            <i class="fas fa-file-import"></i> 엑셀 데이터 가져오기
+          </button>
+          <button id="outbound-excel-export">
+            <i class="fas fa-file-export"></i> 엑셀 내보내기
+          </button>
+          <input
+            type="file"
+            id="outbound-excel-file"
+            accept=".xlsx, .xls"
+            style="display: none"
+          />
+        </div>
+        <div class="search-container">
+          <input type="text" id="outbound-search" placeholder="출고 검색..." />
+          <button id="outbound-search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="table-container">
+          <table id="outbound-table">
+            <thead>
+              <tr>
+                <th>출고일</th>
+                <th>납품처</th>
+                <th>품번</th>
+                <th>품목</th>
+                <th>출고수량</th>
+                <th>출고팔렛</th>
+                <th>차량번호</th>
+                <th>기사명</th>
+                <th>연락처</th>
+                <th>비고</th>
+                <th>작업</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 데이터가 여기에 동적으로 로드됩니다 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 자동차 부품 재고 관리 시스템. All rights reserved.</p>
+    </footer>
+
+    <!-- 출고 등록 모달 -->
+    <div id="outbound-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>
+          <i class="fas fa-arrow-up"></i>
+          <span id="outbound-modal-title">신규 출고 등록</span>
+        </h2>
+        <form id="outbound-form">
+          <div class="form-group">
+            <label for="outbound-date"
+              ><i class="fas fa-calendar"></i> 출고일</label
+            >
+            <input type="date" id="outbound-date" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-client"
+              ><i class="fas fa-building"></i> 납품처</label
+            >
+            <input type="text" id="outbound-client" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-part-no"
+              ><i class="fas fa-barcode"></i> 품번</label
+            >
+            <input type="text" id="outbound-part-no" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-item"><i class="fas fa-cube"></i> 품목</label>
+            <input type="text" id="outbound-item" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-quantity"
+              ><i class="fas fa-sort-amount-up"></i> 출고수량</label
+            >
+            <input type="number" id="outbound-quantity" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-pallets"
+              ><i class="fas fa-pallet"></i> 출고팔렛</label
+            >
+            <input type="number" id="outbound-pallets" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="outbound-vehicle"
+              ><i class="fas fa-truck"></i> 차량번호</label
+            >
+            <input type="text" id="outbound-vehicle" />
+          </div>
+          <div class="form-group">
+            <label for="outbound-driver"
+              ><i class="fas fa-user"></i> 기사명</label
+            >
+            <input type="text" id="outbound-driver" />
+          </div>
+          <div class="form-group">
+            <label for="outbound-contact"
+              ><i class="fas fa-phone"></i> 연락처</label
+            >
+            <input type="text" id="outbound-contact" />
+          </div>
+          <div class="form-group">
+            <label for="outbound-notes"
+              ><i class="fas fa-sticky-note"></i> 비고</label
+            >
+            <textarea id="outbound-notes"></textarea>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">
+              <i class="fas fa-save"></i> 저장
+            </button>
+            <button type="button" class="cancel-btn">
+              <i class="fas fa-times"></i> 취소
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/outbound.js"></script>
+  </body>
+</html>
